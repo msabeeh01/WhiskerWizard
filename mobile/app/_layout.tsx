@@ -4,17 +4,16 @@ import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
-import { Text } from '../components/Themed';
 import { useState } from 'react';
 
 //supabase
 import { supabase } from '../lib/supabase';
 import { Session } from "@supabase/supabase-js"
 
-
 //components
 import Login from '../components/AuthComponents/Login';
 import { View } from '../components/Themed';
+import Reminders from './reminders';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -86,6 +85,7 @@ function RootLayoutNav() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', headerShown: false }} />
+        <Stack.Screen name="reminders"  options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );
