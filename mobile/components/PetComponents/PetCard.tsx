@@ -18,24 +18,29 @@ export default function PetCard(props: PetCardProps) {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Image resizeMode="cover" borderRadius={10} source={{ uri: 'https://picsum.photos/200' }} style={{ width: '75%', height: 200 }} />
-
-
+      <View style={styles.imageContainer}>
+        <Image resizeMode="cover" borderRadius={30} source={{ uri: 'https://picsum.photos/200' }} style={{ width: '100%', height: 225 }} />
+        <View style={styles.textContainer}>
+          <Text style={styles.petName}>{props.pet_name}</Text>
+          <Text style={styles.petDesc}>{props.pet_desc}</Text>
+        </View>
+      </View>
       <View style={styles.iconContainer}>
         <Link href={{
           pathname: "/reminders",
           params: {
             petID: props.pet_id
           }
-          }}>
-          <Icon
-            name="needle"
-            type="material-community"
-            color="green"
-          />
+        }}>
+
+          <Icon name="sticky-note" type="font-awesome" color="#FF5838" />
         </Link >
-        <Icon name="sticky-note" type="font-awesome" color="green" />
-        <Icon name="photo" type="font-awesome" color="green" />
+        <Icon
+          name="needle"
+          type="material-community"
+          color="#9CB963"
+        />
+        <Icon name="photo" type="font-awesome" color="#EAAE88" />
       </View>
     </View>
   );
@@ -44,7 +49,7 @@ export default function PetCard(props: PetCardProps) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    borderRadius: 10, // Rounded corners
+    borderRadius: 30, // Rounded corners
     backgroundColor: "#fff", // White background
     shadowColor: "#000", // Shadow color
     shadowOffset: {
@@ -52,12 +57,15 @@ const styles = StyleSheet.create({
       height: 2,
     },
     justifyContent: "center",
-    gap: 20,
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5, // Android elevation
     alignSelf: "center",
-    width: "90%",
+    marginHorizontal: 20
+  },
+  imageContainer: {
+    flex: 1,
+    borderRadius: 30,
   },
   text: {
     padding: 10,
@@ -68,7 +76,26 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    gap: 40,
-    width: "20%",
-  }
+    gap: 45,
+    borderRadius: 30,
+    flex: 0.25
+  },
+  textContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    padding: 20,
+    borderRadius: 30
+  },
+  petName: {
+    color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  petDesc: {
+    color: 'white',
+    fontSize: 16,
+  },
 });

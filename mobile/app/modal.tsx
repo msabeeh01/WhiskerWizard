@@ -1,8 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet } from 'react-native';
+import { Input } from '@rneui/themed';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
+import { Button } from 'react-native-elements';
 
 export default function ModalScreen() {
   return (
@@ -10,6 +12,12 @@ export default function ModalScreen() {
       <Text style={styles.title}>Add Reminder</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       {/* <EditScreenInfo path="app/modal.tsx" /> */}
+      <View style={styles.form}>
+        <Input placeholder="Reminder Title" />
+        <Input placeholder="Reminder Description" />
+        <Button title="Add Reminder" onPress={() => {console.log('add reminder LOGIC HERE')}} />
+      </View>
+
 
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
@@ -19,6 +27,7 @@ export default function ModalScreen() {
 
 const styles = StyleSheet.create({
   container: {
+    borderRadius: 30,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -32,4 +41,7 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
+  form:{
+    width: '90%',
+  }
 });

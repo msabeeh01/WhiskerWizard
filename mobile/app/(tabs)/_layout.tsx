@@ -24,33 +24,46 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-      }}>
+        tabBarStyle: {
+          borderRadius: 30,
+        }
+      }}
+      >
       <Tabs.Screen
         name="index"
         options={{
           title: 'Pets',
-          tabBarIcon: ({ color }) => <Icon name="pets" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor:'#FF995C',
+            borderRadius: 20,
+          },
+          tabBarIcon: ({ color }) => <Icon name="pets" color='#E8A87D' />,
+          // headerRight: () => (
+          //   <Link href="/modal" asChild>
+          //     <Pressable>
+          //       {({ pressed }) => (
+          //         <FontAwesome
+          //           name="info-circle"
+          //           size={25}
+          //           color='#fff'
+          //           style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+          //         />
+          //       )}
+          //     </Pressable>
+          //   </Link>
+          // ),
         }}
       />
       <Tabs.Screen
         name="two"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <Icon name="person" color={color} />,
+          headerStyle: {
+            backgroundColor:'#FF995C',
+            borderRadius: 20,
+          },
+          tabBarIcon: ({ color }) => <Icon name="person" color='#E8A87D' />,
         }}
       />
     </Tabs>

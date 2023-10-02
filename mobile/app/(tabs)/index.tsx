@@ -1,18 +1,23 @@
 import { ScrollView, StyleSheet } from 'react-native';
 import { useState, useEffect } from 'react';
 
-import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
-import { Button } from 'react-native-elements/dist/buttons/Button';
 import { supabase } from '../../lib/supabase';
 import { Session } from '@supabase/supabase-js'
 import PetCard from '../../components/PetComponents/PetCard';
+import { SearchBarIOS } from '@rneui/base/dist/SearchBar/SearchBar-ios';
+import { Button } from '@rneui/themed';
+import { Icon } from 'react-native-elements';
+import { Link } from 'expo-router';
 
 export default function TabOneScreen() {
   const [session, setSession] = useState<Session | null>(null)
 
   //pet states
   const [pets, setPets] = useState<any>([])
+
+  //search states
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -32,25 +37,36 @@ export default function TabOneScreen() {
       .select('*')
       .eq("user_id", session?.user.id)
     if (error) console.log('error', error)
-    else{
+    else {
       setPets(pets)
-    } 
+    }
   }
+
+  const filteredPets = pets.filter((pet: any) => {
+    return pet.pet_name.toLowerCase().includes(search.toLowerCase())
+  })
 
   return (
     <View style={styles.container}>
+      <View style={styles.searchContainer}>
+        <View style={styles.searchBarContainer}>
+          <SearchBarIOS containerStyle={{borderRadius: 30}} style={{borderRadius: 30}} placeholder='Search' onChange={(e) => setSearch(e.nativeEvent.text)} value={search} />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Link href="/modal" asChild>
+            <Icon name="plus-square-o"  type="font-awesome" color="black"/>
+          </Link>
+        </View>
+      </View>
+
       <ScrollView
         contentContainerStyle={styles.cardParent}
       >
-        <View style={styles.cardParent2}>
-
-          {pets.map((pet: any) => (
-
-            <View key={pet.id}>
-              <PetCard pet_name={pet.pet_name} pet_desc={pet.pet_desc} pet_id={pet.id} />
-            </View>
-          ))}
-        </View>
+        {filteredPets.map((pet: any) => (
+          <View key={pet.id} style={{borderRadius: 30}}>
+            <PetCard pet_name={pet.pet_name} pet_desc={pet.pet_desc} pet_id={pet.id} />
+          </View>
+        ))}
       </ScrollView>
     </View>
   );
@@ -61,27 +77,39 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    width: '100%',
-    //backgroundColor: 'blue',
-  },
-  cardParent2: {
-    gap: 20,
-    flex: 1,
-    flexDirection: 'row',
-    width: '100%',
-    alignItems: 'center',
-    flexWrap: 'wrap',
+    borderRadius: 30,
   },
   cardParent: {
-    flex: 1,
+    borderRadius: 30,
     flexDirection: 'column',
-    backgroundColor: 'black',
+    gap: 30,
     width: '100%',
-    justifyContent: 'center',
     alignItems: 'center',
+    flexGrow: 1,
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
   },
+  searchContainer: {
+    borderRadius: 30,
+    width: '95%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  buttonContainer: {
+    borderRadius: 30,
+    flex: 0.1,
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  searchBarContainer:{
+    borderRadius: 30,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 });

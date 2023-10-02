@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+
         borderWidth: 1,
         borderColor: "black",
         borderRadius: 10, // Rounded corners
@@ -35,6 +36,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5, // Android elevation
+        
         width: "100%",
         alignSelf: "center",
     },

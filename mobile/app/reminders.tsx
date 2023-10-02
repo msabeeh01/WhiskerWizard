@@ -45,16 +45,14 @@ const Reminders = () => {
         <View style={styles.container}>
             <ScrollView
                 contentContainerStyle={styles.cardParent}>
-                <View style={styles.cardParent2}>
                     {reminders.map((reminder: any) => (
-                        <View key={reminder.id} style={styles.card}>
+                        <View key={reminder.id}>
                             <ReminderCard
                                 reminder={reminder.reminder}
                                 phone={reminder.phone}
                             />
                         </View>
                     ))}
-                </View>
             </ScrollView>
         </View>
     );
@@ -68,20 +66,9 @@ const styles = StyleSheet.create({
         width: '100%',
         //backgroundColor: 'blue',
     },
-    card: {
-        width: '45%',
-    },
-    cardParent2: {
-        gap: 20,
-        flexDirection: 'row',
-        width: '100%',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-    },
     cardParent: {
         flex: 1,
         flexDirection: 'column',
-        width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
     },
