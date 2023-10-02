@@ -1,21 +1,45 @@
 import { StatusBar } from 'expo-status-bar';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import { Input } from '@rneui/themed';
-
-import EditScreenInfo from '../components/EditScreenInfo';
+import ImagePickerExample from '../components/ImagePicker/ImagePicker';
 import { Text, View } from '../components/Themed';
 import { Button } from 'react-native-elements';
+import { supabase } from '../lib/supabase';
+import { Session } from '@supabase/supabase-js';
+
 
 export default function ModalScreen() {
+  const [name, setName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    //get session
+    fetchSession()
+  }, [])
+
+  const fetchSession = async () => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Add Reminder</Text>
+      <Text style={styles.title}>Add Pet</Text>
+      <Text style={styles.title}>{session?.user.id}</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       {/* <EditScreenInfo path="app/modal.tsx" /> */}
       <View style={styles.form}>
-        <Input placeholder="Reminder Title" />
-        <Input placeholder="Reminder Description" />
-        <Button title="Add Reminder" onPress={() => {console.log('add reminder LOGIC HERE')}} />
+        <Input placeholder="Pet Name" onChange={(e) => setName(e.nativeEvent.text)}/>
+        <Input placeholder="Pet Description" onChange={(e) => setDescription(e.nativeEvent.text)}/>
+        {/* file upload */}
+        <ImagePickerExample pet_description={description} pet_name={name}/>
+
+        <Button title="Add Pet" onPress={() => { console.log('add reminder LOGIC HERE') }} />
+
       </View>
 
 
@@ -41,7 +65,7 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
-  form:{
+  form: {
     width: '90%',
   }
 });

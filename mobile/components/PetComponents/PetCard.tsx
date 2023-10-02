@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Icon } from "@rneui/themed";
 import Reminders from "../../app/reminders";
 import { Link } from "expo-router";
+import React from "react";
 
 interface PetCardProps {
   pet_name: string,
@@ -50,7 +51,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     borderRadius: 30, // Rounded corners
-    backgroundColor: "#fff", // White background
     shadowColor: "#000", // Shadow color
     shadowOffset: {
       width: 0,

@@ -23,6 +23,7 @@
     "dotenv": "^16.3.1",
     "expo": "~49.0.13",
     "expo-font": "~11.4.0",
+    "expo-image-picker": "~14.3.2",
     "expo-linking": "~5.0.2",
     "expo-router": "^2.0.0",
     "expo-splash-screen": "~0.20.5",

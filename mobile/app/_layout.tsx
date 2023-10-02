@@ -5,6 +5,7 @@ import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 import { useState } from 'react';
+import React from 'react';
 
 //supabase
 import { supabase } from '../lib/supabase';
