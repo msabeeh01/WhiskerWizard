@@ -1,5 +1,6 @@
 import { ScrollView, StyleSheet } from 'react-native';
 import { useState, useEffect } from 'react';
+import React from 'react';
 
 import { Text, View } from '../../components/Themed';
 import { supabase } from '../../lib/supabase';
@@ -49,6 +50,7 @@ export default function TabOneScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
+        <Button onPress={()=>supabase.auth.signOut()} title="Logout" color="black"></Button>
         <View style={styles.searchBarContainer}>
           <SearchBarIOS containerStyle={{borderRadius: 30}} style={{borderRadius: 30}} placeholder='Search' onChange={(e) => setSearch(e.nativeEvent.text)} value={search} />
         </View>
