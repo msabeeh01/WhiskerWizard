@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Alert, StyleSheet, View } from 'react-native'
+import { Alert, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native'
 import { supabase } from '../../lib/supabase'
 import { Button, Input } from 'react-native-elements'
 import { Text } from '../Themed'
@@ -33,44 +33,48 @@ export default function Login() {
   }
 
   return (
-    <View style={styles.container}>
-      <Image source={{ uri: "https://previews.123rf.com/images/sudowoodo/sudowoodo2003/sudowoodo200300053/144219749-cute-cartoon-magic-cat-in-wizard-hat-funny-black-kitty-character-head-vector-clip-art-illustration.jpg" }} 
-      style={{ borderRadius: 200, width: 200, height: 200, marginVertical: 20 }} />
-      <View style={styles.verticallySpaced}>
-        <Input
-          label="Email"
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-          placeholder="email@address.com"
-          autoCapitalize={'none'}
-        />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}  
+    >
+      <View style={styles.container} >
+        <Image source={{ uri: "https://previews.123rf.com/images/sudowoodo/sudowoodo2003/sudowoodo200300053/144219749-cute-cartoon-magic-cat-in-wizard-hat-funny-black-kitty-character-head-vector-clip-art-illustration.jpg" }}
+          style={{ borderRadius: 200, width: 200, height: 200, marginVertical: 20 }} />
+        <View style={styles.verticallySpaced}>
+          <Input
+            label="Email"
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+            placeholder="email@address.com"
+            autoCapitalize={'none'}
+          />
+        </View>
+        <View style={styles.verticallySpaced}>
+          <Input
+            label="Password"
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+            secureTextEntry={true}
+            placeholder="Enter your password"
+            autoCapitalize={'none'}
+          />
+        </View>
+        <View style={styles.verticallySpaced}>
+          <Button
+            type='clear'
+            title="Sign in"
+            disabled={loading}
+            onPress={() => signInWithEmail()}
+            buttonStyle={styles.button}
+            titleStyle={{ color: '#F59359' }} />
+        </View>
+        <View style={styles.verticallySpaced}>
+          <Button
+            buttonStyle={styles.buttonAlt}
+            containerStyle={styles.buttonAltShadow}
+            title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
+        </View>
       </View>
-      <View style={styles.verticallySpaced}>
-        <Input
-          label="Password"
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          secureTextEntry={true}
-          placeholder="Enter your password"
-          autoCapitalize={'none'}
-        />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Button
-          type='clear'
-          title="Sign in"
-          disabled={loading}
-          onPress={() => signInWithEmail()}
-          buttonStyle={styles.button}
-          titleStyle={{ color: '#F59359' }} />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Button
-          buttonStyle={styles.buttonAlt}
-          containerStyle={styles.buttonAltShadow}
-          title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
-      </View>
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 

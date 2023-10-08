@@ -86,7 +86,8 @@ function RootLayoutNav() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', headerShown: false }} />
-        <Stack.Screen name="reminders"  options={{ headerShown: false }} />
+        <Stack.Screen name="reminders"  options={{ headerShown: true }} />
+        <Stack.Screen name="vaccines" options={{ headerShown: true }} />
       </Stack>
     </ThemeProvider>
   );

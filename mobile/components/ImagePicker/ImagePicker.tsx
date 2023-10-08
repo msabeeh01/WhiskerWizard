@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { supabase } from '../../lib/supabase';
 import { useNavigation } from 'expo-router';
-import { FileObject } from "@supabase/storage-js"
+import * as FileSystem from 'expo-file-system'
 
 interface ImagePickerExampleProps {
     pet_name: string,
@@ -14,8 +14,13 @@ interface ImagePickerExampleProps {
 }
 
 export default function ImagePickerExample({ pet_description, pet_name, user_id }: ImagePickerExampleProps) {
-    const [image, setImage] = useState<File | null>(null);
-    const [imageURI, setImageURI] = useState<string | null>(null);
+    const [image, setImage] = useState<string | null>(null);
+    const [imageData, setImageData] = useState({
+        uri: '',
+        base64: '',
+        filePath: '',
+        contentType: ''
+    });
 
     //navi
     const navigation = useNavigation();
@@ -30,20 +35,19 @@ export default function ImagePickerExample({ pet_description, pet_name, user_id 
         });
 
         if (!result.canceled) {
-            //save image uri to state
-            setImageURI(result.assets[0].uri);
-            //convert to file for supabase, use file name as pet name
-            const response = await fetch(result.assets[0].uri);
-            const data = await response.blob();
-            const file = new File([data], pet_name, { type: result.assets[0].type });
-            //save file to state
-            setImage(file);
+            const img = result.assets[0];
+            setImageData({
+                uri: img.uri,
+                base64: await FileSystem.readAsStringAsync(img.uri, {encoding: FileSystem.EncodingType.Base64}),
+                filePath: `${user_id}/${user_id}${pet_name}`,
+                contentType: img.type === 'image' ? 'image/jpeg' : 'video/mp4'
+            });
+
 
         }
     };
 
     const handleAdd = async () => {
-        console.log('add reminder LOGIC HERE')
         const { data, error } = await supabase
             .from('pets')
             .insert([
@@ -56,12 +60,12 @@ export default function ImagePickerExample({ pet_description, pet_name, user_id 
         if (error) {
             console.log(error)
         }
-        if (image) {
+        if (imageData) {
             const { data: iData, error: iError } = await supabase
                 .storage
                 .from('petImages')
-                .upload(`${user_id}/${user_id}${pet_name}`, image, {
-                    contentType: image.type,
+                .upload(`${user_id}/${user_id}${pet_name}`, decodeURI(imageData.uri), {
+                    contentType: imageData.contentType
                 })
             if (iError) {
                 console.log(iError)
@@ -76,7 +80,7 @@ export default function ImagePickerExample({ pet_description, pet_name, user_id 
     return (
         <View>
             <View style={{ alignItems: 'center', justifyContent: 'center', padding: 20, backgroundColor: '#F5E9E6', borderRadius: 30, minHeight: 200, marginBottom: 20 }}>
-                {imageURI && <Image source={{ uri: imageURI }} style={{ width: 200, height: 200 }} />}
+                {imageData.uri && <Image source={{ uri: imageData.uri }} style={{ width: 200, height: 200 }} />}
             </View>
             <View style={styles.spacerContainer}>
                 <Button titleStyle={styles.title} buttonStyle={styles.button} title="Pick an image from camera roll" onPress={pickImage} />

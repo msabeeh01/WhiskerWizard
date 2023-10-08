@@ -1,5 +1,6 @@
 import { View, Text } from "../Themed";
 import { StyleSheet } from "react-native";
+import React from "react";
 
 interface ReminderCardProps {
     reminder: string,
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "black",
         borderRadius: 10, // Rounded corners
-        backgroundColor: "#fff", // White background
+        backgroundColor: "#F59359", // White background
         shadowColor: "#000", // Shadow color
         shadowOffset: {
             width: 0,
@@ -38,12 +39,15 @@ const styles = StyleSheet.create({
         elevation: 5, // Android elevation
         
         width: "100%",
+        height: "100%",
         alignSelf: "center",
     },
     text: {
         padding: 10,
         justifyContent: "center",
         alignItems: "center",
+        color: "white",
+        backgroundColor: "#F59359",
     },
 });
 

@@ -34,14 +34,17 @@ export default function PetCard(props: PetCardProps) {
           }
         }}>
 
-          <Icon name="sticky-note" type="font-awesome" color="#FF5838" />
+          <Icon name="sticky-note" type="font-awesome" color="#F59359" />
         </Link >
+
+        <Link href="/vaccines">
         <Icon
           name="needle"
           type="material-community"
-          color="#9CB963"
+          color="#F59359"
         />
-        <Icon name="photo" type="font-awesome" color="#EAAE88" />
+                </Link>
+        <Icon name="photo" type="font-awesome" color="#F59359" />
       </View>
     </View>
   );

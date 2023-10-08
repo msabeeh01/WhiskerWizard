@@ -1,6 +1,6 @@
 import React from "react"
 import { View, Text } from "../Themed"
-import { StyleSheet, Platform } from "react-native"
+import { StyleSheet, Platform, KeyboardAvoidingView } from "react-native"
 import { Input, Button } from "@rneui/themed"
 import { useState, useEffect } from "react"
 import { StatusBar } from "expo-status-bar"
@@ -42,8 +42,6 @@ const AddPetModal = () => {
                 <Input placeholder="Pet Description" onChange={(e) => setDescription(e.nativeEvent.text)} />
                 {/* file upload */}
                 {session && session.user && <ImagePickerExample pet_description={description} pet_name={name} user_id={session?.user.id} />}
-
-
             </View>
 
 
@@ -54,6 +52,9 @@ const AddPetModal = () => {
 }
 
 const styles = StyleSheet.create({
+    keyboardView: {
+        flex: 1
+    },
     container: {
         borderRadius: 30,
         flex: 1,

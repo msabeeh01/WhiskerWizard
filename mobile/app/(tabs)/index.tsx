@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react';
 import React from 'react';
 
@@ -50,13 +50,13 @@ export default function TabOneScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
-        <Button onPress={()=>supabase.auth.signOut()} title="Logout" color="black"></Button>
+        <Button onPress={()=>supabase.auth.signOut()} title="Logout" color="#F59359" buttonStyle={{borderRadius: 30}}></Button>
         <View style={styles.searchBarContainer}>
-          <SearchBarIOS containerStyle={{borderRadius: 30}} style={{borderRadius: 30}} placeholder='Search' onChange={(e) => setSearch(e.nativeEvent.text)} value={search} />
+          <SearchBarIOS containerStyle={{borderRadius: 30}} style={{borderRadius: 30}} placeholder='Search' onChange={(e) => setSearch(e.nativeEvent.text)} onClear={() => setSearch('')} value={search} />
         </View>
         <View style={styles.buttonContainer}>
           <Link href="/modal" asChild>
-            <Icon name="plus-square-o"  type="font-awesome" color="black"/>
+            <Icon onPress={() => {}} name="plus-square-o"  type="font-awesome" color="black"/>
           </Link>
         </View>
       </View>

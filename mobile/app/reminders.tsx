@@ -5,6 +5,7 @@ import { StyleSheet } from "react-native"
 import { supabase } from "../lib/supabase";
 import { Session } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
+import React from "react";
 
 //expo imports
 import { useLocalSearchParams } from "expo-router";
@@ -44,9 +45,10 @@ const Reminders = () => {
     return (
         <View style={styles.container}>
             <ScrollView
-                contentContainerStyle={styles.cardParent}>
+                contentContainerStyle={styles.contentCardParent}
+                style={styles.cardParent}>
                     {reminders.map((reminder: any) => (
-                        <View key={reminder.id}>
+                        <View key={reminder.id} style={styles.directCardPrent}>
                             <ReminderCard
                                 reminder={reminder.reminder}
                                 phone={reminder.phone}
@@ -63,19 +65,22 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        width: '100%',
-        //backgroundColor: 'blue',
     },
     cardParent: {
+        width: '100%',
+    },
+    directCardPrent:{
+        width: '70%',
+        height: 100,
+    },
+    contentCardParent:{
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'center',
         alignItems: 'center',
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        gap: 10
+    }
 });
 
 export default Reminders
