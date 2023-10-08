@@ -43,7 +43,6 @@ export default function Login() {
           value={email}
           placeholder="email@address.com"
           autoCapitalize={'none'}
-          containerStyle={styles.input}
         />
       </View>
       <View style={styles.verticallySpaced}>
@@ -54,7 +53,6 @@ export default function Login() {
           secureTextEntry={true}
           placeholder="Enter your password"
           autoCapitalize={'none'}
-          containerStyle={styles.input}
         />
       </View>
       <View style={styles.verticallySpaced}>
@@ -114,12 +112,4 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  input: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    borderRadius: 20,
-    backgroundColor: 'white',
-    padding: '4%',
-  }
 })
